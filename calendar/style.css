@@ -1,0 +1,149 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    height: 100vh;
+    width: 100vw;
+}
+
+.titulo-container {
+    width: 100vw;
+    height: 50px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.titulo {
+    font-family: 'IBM Plex Mono', mono;
+    font-size: 50px;
+    font-weight: 700;
+}
+
+.calendar-container {
+    width: 100vw;
+    min-height: 700px;
+    /* max-height: 400px; */
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+
+}
+
+.calendar {
+    width: 90%;
+    display: grid;
+    grid-template-rows: 40px 40px 40px repeat(6, 1fr);
+    grid-template-columns: repeat(7, 1fr);
+    border: 3px solid rgba(3, 3, 3, .1);
+    box-shadow: 0 4px 4px rgba(3, 3, 3, .4);
+}
+
+.anio-container {
+    grid-row: 1/2;
+    grid-column: 1/8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 2px solid rgba(200, 200, 200, .6);
+}
+
+.anio-actual {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: gray; */
+}
+
+.flecha-anio {
+    align-items: center;
+    /* background-color: gray; */
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+}
+
+.mes-container {
+    grid-row: 2/3;
+    grid-column: 1/8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 2px solid rgba(200, 200, 200, .6);
+}
+
+.flecha-mes {
+    /* background-color: rgba(200, 200, 200, .5); */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.flecha-mes:hover {
+    cursor: pointer;
+}
+
+.mes-actual {
+    min-width: 100px;
+    text-align: center;
+}
+
+.dias {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* user-select: none; */
+    /* max-height: 20px; */
+}
+
+
+
+
+.fecha-container {
+    border: 1px solid rgba(200, 200, 200, .6);
+}
+
+
+
+.dia-hoy {
+    border: 2px solid rgba(100, 150, 150, .9);
+    /* background-color: lightblue; */
+    
+}
+
+.dia-hoy div div {
+    background-color:  rgba(100, 150, 150, .9);
+    user-select: none;
+}
+
+/* .dia-hoy:hover {
+    height: +150px;
+} */
+.numero-container {
+    /* background-color: lightblue; */
+    text-align: cener;
+    display: flex;
+    justify-content: center;
+    margin-top: 2px;
+}
+
+.numero-dia {
+    width: 20px;
+    text-align: center;
+    /* background-color: lightblue; */
+    border: 1px solid rgba(200, 200, 200, .8);
+    border-radius: 50px;
+    
+}
+
+

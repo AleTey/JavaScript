@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Contador Cartas</title>
+</head>
+
+<body>
+  <div class="titulo">
+    <h1>Contador</h1>
+  </div>
+  <div class="contenedor-interfaz">
+    <div class="interfaz">
+      <input type="text" id="input" name="input" value="" placeholder="num">
+      <button id="boton" type="button">Calcular</button>
+    </div>
+    <div class="resultado">
+      <div id="sugerencia" class="sugerencia esperar">Esperar</div>
+      <div id="cuenta">Cuenta <br> <b id="n">0</b></div>
+    </div>
+  </div>
+  <div class="contenedor-historial">
+    <p id="titulo-historial">Historial</p>
+    <div class="historial"></div>
+  </div>
+
+  <script src="funcion.js"></script>
+</body>
+
+</html>
