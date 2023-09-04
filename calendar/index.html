@@ -285,21 +285,58 @@
   <footer>
     <div class="foot">footer</div>
   </footer>
-  <!-- Crear evento -->
+  <!-- Eventos -->
   <div class="tareas-container">
     <div class="tareas">
       <div class="tareas-head">
         <div class="tareas-titulo">
-          <p>Tareas</p>
+          <p>Eventos</p>
           <img class="tareas-close" src="img/close_FILL0_wght400_GRAD0_opsz24.png" alt="cerrar">
         </div>
-        <div id="tareas-fecha"></div>
+        <div class="tareas-fecha"></div>
       </div>
       <div class="tareas-body">
-
+        <div class="tareas-lista">
+          dfsafds
+        </div>
       </div>
       <div class="tareas-footer">
+        <div class="add">
+          <img src="img/outline_add_white_36dp.png" alt="">
+        </div>
+      </div>
+    </div>
+    <!-- NUEVO EVENTO -->
+    <div class="tarea-nueva-container">
+      <div class="tarea-nueva">
+        <div class="tareas-head">
+          <div class="tareas-titulo">
+            <p>Agregar Evento</p>
+            <img class="nueva-tarea-back" src="img/outline_arrow_back_black_36dp.png" alt="cerrar">
+          </div>
+          <div class="tareas-fecha nueva-tarea-fecha"></div>
+        </div>
+        <div id="tarea-nueva-body" class="tareas-body">
+          <div class="titulo-nuevo-evento">
+            <input type="text" placeholder="Titulo">
+          </div>
+          <div class="hora-nuevo-evento">
+            <label for="hora">Hrs: <input type="number" min="0" max="24" value="12"></label>
+            <label for="hora">Min:<input type="number" min="0" max="60" value="00"></label>
+          </div>
+          <div class="direccion-nuevo-evento">
+            <input type="text" placeholder="Direccion">
+          </div>
+          <div class="detalles-nuevo-evento">
+            <textarea name="" id="" cols="40" rows="5" placeholder="Detalles"></textarea>
+          </div>
 
+        </div>
+        <div class="tareas-footer">
+          <div id="agregar-tarea-boton">
+            Agregar
+          </div>
+        </div>
       </div>
     </div>
   </div>

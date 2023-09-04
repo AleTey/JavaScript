@@ -19,10 +19,15 @@ const mesSiguiente = document.querySelector('#foward');
 const anioAnterior = document.querySelector('#back-anio');
 const anioSiguiente = document.querySelector('#foward-anio');
 const tareasClose = document.querySelector('.tareas-close');
+const nuevaTareaB = document.querySelector('.add');
+const nuevaTareaBack = document.querySelector('.nueva-tarea-back');
 
 //Tareas
 const tareasContainer = document.querySelector('.tareas-container');
-var tareasFecha = document.querySelector('#tareas-fecha');
+var tareasFecha = document.querySelector('.tareas-fecha');
+var nuevaTareaFecha = document.querySelector('.nueva-tarea-fecha');
+const tareas = document.querySelector('.tareas');
+const nuevaTarea = document.querySelector('.tarea-nueva-container');
 var arrayTareas = [];
 
 function selectorDeMes(mes) {
@@ -180,13 +185,29 @@ tareasClose.addEventListener('click', () => {
 });
 
 //EventListeners / abrir tareas
+//var fechaTarea se usa en abrir tareas y nueva tarea
+var fechaTarea;
 for (let i = 0; i < arrayFechas.length; i++) {
   arrayFechas[i].addEventListener('click', () => {
       if (arrayFechas[i].classList.contains("activo")) {
         tareasContainer.style.display='flex';
         const diaTarea = arrayFechas[i].firstElementChild.firstElementChild.textContent;
-        const fechaTarea = new Date(anio, mes, diaTarea);
+        fechaTarea = new Date(anio, mes, diaTarea);
         tareasFecha.textContent = `${fechaTarea.getDate()} de ${selectorDeMes(mes)} de ${fechaTarea.getFullYear()}`;
       }
   });
 }
+
+//EventListeners / nueva tarea
+nuevaTareaB.addEventListener('click', () => {
+  tareas.style.display='none';
+  nuevaTarea.style.display='flex';
+  nuevaTareaFecha.textContent = `${fechaTarea.getDate()} de ${selectorDeMes(mes)} de ${fechaTarea.getFullYear()}`;
+  
+});
+
+//EventListener / nueva tarea back
+nuevaTareaBack.addEventListener('click', () => {
+  nuevaTarea.style.display= 'none';
+  tareas.style.display='flex';
+});
