@@ -5,8 +5,13 @@
 }
 
 .container {
-    height: 100vh;
+    position: relative;
+    /* height: 100vh; */
     width: 100vw;
+    z-index: 1;
+    /* margin-bottom: 10px; */
+    display: flex;
+    flex-direction: column;
 }
 
 .titulo-container {
@@ -29,9 +34,9 @@
     min-height: 700px;
     /* max-height: 400px; */
     margin-top: 50px;
+    margin-bottom: 50px;
     display: flex;
     justify-content: center;
-
 }
 
 .calendar {
@@ -41,6 +46,7 @@
     grid-template-columns: repeat(7, 1fr);
     border: 3px solid rgba(3, 3, 3, .1);
     box-shadow: 0 4px 4px rgba(3, 3, 3, .4);
+    z-index: 10;
 }
 
 .anio-container {
@@ -102,23 +108,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /* user-select: none; */
-    /* max-height: 20px; */
 }
-
-
-
 
 .fecha-container {
     border: 1px solid rgba(200, 200, 200, .6);
 }
 
-
-
 .dia-hoy {
     border: 2px solid rgba(100, 150, 150, .9);
-    /* background-color: lightblue; */
-    
 }
 
 .dia-hoy div div {
@@ -126,9 +123,6 @@
     user-select: none;
 }
 
-/* .dia-hoy:hover {
-    height: +150px;
-} */
 .numero-container {
     /* background-color: lightblue; */
     text-align: cener;
@@ -143,7 +137,91 @@
     /* background-color: lightblue; */
     border: 1px solid rgba(200, 200, 200, .8);
     border-radius: 50px;
+}
+
+/* FOOTER */
+
+.foot {
+    height: 40px;
+    width: 100%;
+    background-color: lightblue;
+}
+
+/* TAREAS */
+
+.tareas-container {
+    display: none;
+    flex-direction: column;
+    /* display: inline; */
+    position: absolute;
+    min-width: 300px;
+    min-height: 500px;
+    top: 50%; /* Centra verticalmente */
+    left: 50%; /* Centra horizontalmente */
+    transform: translate(-50%, -50%); 
+    background-color: rgba(245, 245, 245, 1);
+    padding: 10px 0;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 100!important;
+}
+
+/* .tareas {
+    width: 100%;
+    height: 100%;
+    display: flex;
+} */
+
+/* .tareas{
+    display: flex;
+    width: 100%;
+    margin-bottom: 8px;
+} */
+
+.tareas {
+    /* background-color: rebeccapurple; */
+    width: 100%;
+    height: 100%;
+    margin-bottom: 5px;
     
+    font-size: 25px;
+    font-weight: bold;
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: top;
+}
+
+
+
+.tareas-head {
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    justify-content: center;
+    align-items: center;
+}
+.tareas img {
+    width: 30px;
+    position: absolute;
+    text-align: right;
+    right: 1px;
+    top: 1px;
+    cursor: pointer;
+}
+.tareas-titulo {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+#tareas-fecha {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 10;
+}
+
+.tareas-body {
+    border-top: 3px solid rgba(200, 200, 200, .3);
+    min-height: 300px;
+    /* box-shadow:  0 0 rgba(0, 0, 0, 0.3); */
 }
 
 

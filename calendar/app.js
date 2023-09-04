@@ -9,19 +9,21 @@ var mes = fechaHoy.getMonth();
 var anio = fechaHoy.getFullYear();
 var mesPosActual = mes;
 var anioPosActual = anio;
-console.log(diaS);
-
-// Botones
-
-const mesAnterior = document.querySelector('#back');
-const mesSiguiente = document.querySelector('#foward');
-const anioAnterior = document.querySelector('#back-anio');
-const anioSiguiente = document.querySelector('#foward-anio');
-
 const anioC = document.querySelector('.anio-actual');
 const mesC = document.querySelector('.mes-actual');
 const arrayFechas = document.querySelectorAll('.fecha-container');
 
+// Botones
+const mesAnterior = document.querySelector('#back');
+const mesSiguiente = document.querySelector('#foward');
+const anioAnterior = document.querySelector('#back-anio');
+const anioSiguiente = document.querySelector('#foward-anio');
+const tareasClose = document.querySelector('.tareas-close');
+
+//Tareas
+const tareasContainer = document.querySelector('.tareas-container');
+var tareasFecha = document.querySelector('#tareas-fecha');
+var arrayTareas = [];
 
 function selectorDeMes(mes) {
   switch (mes) {
@@ -64,10 +66,6 @@ function selectorDeMes(mes) {
   }
 }
 
-function marcarDiaActual() {
-
-}
-
 function actualizarCalendario() {
   anioC.textContent = anio;
   mesC.textContent = selectorDeMes(mes);
@@ -80,7 +78,6 @@ function actualizarCalendario() {
   asignarNumerosAlCalendario(primerDia, calcularUltimoDiaDelMes().getDate());
 
 }
-
 actualizarCalendario();
 
 // PRUEBA MANIPULACION DOM
@@ -106,48 +103,29 @@ function calcularUltimoDiaDelMes() {
   return f;
 }
 
-
 function asignarNumerosAlCalendario(j, k) {
-  // if (j < 0) {
-  //   j = 6;
-  // }
-  // console.log(calcularPrimerDiaDelMes().getDay());
-  // if (diaS > 0) {
-    console.log('hola');
-    for (let i = 0, x = j; i < k; i++, x++) {
 
-      // console.log(j);
-      
-      if (arrayFechas[x].firstElementChild.firstElementChild === null) {
-        console.log('x');
-      }
+  for (let i = 0, x = j; i < k; i++, x++) {
 
-      let containerF = arrayFechas[x].firstElementChild;
-      containerF.firstElementChild.textContent = i + 1;
-      // console.log(containerF.firstElementChild.innerText);
-      // console.log(diaActual, mesActual, anioActual);
-      let diaProv = containerF.firstElementChild.innerText;
-
-      if (anio == anioActual && mes == mesActual && containerF.firstElementChild.innerText == diaActual) {
-        arrayFechas[x].classList.add("dia-hoy");
-        // console.log('hola');
-      }
-    // }
+    let containerF = arrayFechas[x].firstElementChild;
+    containerF.firstElementChild.textContent = i + 1;
+    let diaProv = containerF.firstElementChild.innerText;
+    // Agrega clases a los dias del mes actual
+    arrayFechas[x].classList.add("activo");
+    // Marcar dia actual
+    if (anio === anioActual && mes === mesActual && containerF.firstElementChild.innerText == diaActual) {
+      arrayFechas[x].classList.add("dia-hoy");
+    } else {
+      arrayFechas[x].classList.remove("dia-hoy");
+    }
   }
 }
 
-// asignarNumerosAlCalendario(calcularPrimerDiaDelMes().getDay(), calcularUltimoDiaDelMes().getDate());
-
-// function mesSiguien(params) {
-//   // function Actualizar(params) {
-
-//   // }
-// }
 function limpiarCalendario() {
   for (let i = 0; i < arrayFechas.length; i++) {
     let containerF = arrayFechas[i].firstElementChild;
-    containerF.firstElementChild.textContent = "";
-    // containerF.firstElementChild.style.userSelector= "none";
+    containerF.firstElementChild.textContent = null;
+    arrayFechas[i].classList.remove('activo');
   }
 }
 
@@ -155,6 +133,7 @@ function onClicFecha(e) {
   e.style.backgroundColor = 'blue';
 }
 
+// EventListener
 
 mesAnterior.addEventListener('click', () => {
   if (mes === 0) {
@@ -165,8 +144,6 @@ mesAnterior.addEventListener('click', () => {
   } else {
     mes = mes - 1
   };
-  // anio--;
-  // mes --;
   limpiarCalendario();
   actualizarCalendario();
 });
@@ -196,9 +173,20 @@ anioSiguiente.addEventListener('click', () => {
   actualizarCalendario();
 });
 
-// for (let i = 0; i < arrayFechas.length; i++) {
-//   arrayFechas[i].addEventListener('click', function () {
-//     arrayFechas[i].style.backgroundColor = 'blue';
-//   });
+//EventListeners / cerrar tarea
 
-// }
+tareasClose.addEventListener('click', () => {
+  tareasContainer.style.display = 'none';
+});
+
+//EventListeners / abrir tareas
+for (let i = 0; i < arrayFechas.length; i++) {
+  arrayFechas[i].addEventListener('click', () => {
+      if (arrayFechas[i].classList.contains("activo")) {
+        tareasContainer.style.display='flex';
+        const diaTarea = arrayFechas[i].firstElementChild.firstElementChild.textContent;
+        const fechaTarea = new Date(anio, mes, diaTarea);
+        tareasFecha.textContent = `${fechaTarea.getDate()} de ${selectorDeMes(mes)} de ${fechaTarea.getFullYear()}`;
+      }
+  });
+}
