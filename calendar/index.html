@@ -297,7 +297,14 @@
       </div>
       <div class="tareas-body">
         <div class="tareas-lista">
-          dfsafds
+          <div class="item-tarea a">
+            <div class="horario--tareas-lista">15:50</div>
+            <div class="titulo--tareas-lista">Estudiar Programacion</div>
+          </div>
+          <div class="item-tarea b">
+            <div class="horario--tareas-lista">15:50</div>
+            <div class="titulo--tareas-lista">Estudiar Programacion</div>
+          </div>
         </div>
       </div>
       <div class="tareas-footer">
@@ -318,17 +325,20 @@
         </div>
         <div id="tarea-nueva-body" class="tareas-body">
           <div class="titulo-nuevo-evento">
-            <input type="text" placeholder="Titulo">
+            <input id="titulo--titulo-nuevo-evento" type="text" placeholder="Titulo">
           </div>
           <div class="hora-nuevo-evento">
-            <label for="hora">Hrs: <input type="number" min="0" max="24" value="12"></label>
-            <label for="hora">Min:<input type="number" min="0" max="60" value="00"></label>
+            <label for="hora--hora-nuevo-evento">Hrs: <input id="hora--hora-nuevo-evento" type="number" min="0" max="24"
+                value="12"></label>
+            <label for="min--hora-nuevo-evento">Min:<input id="min--hora-nuevo-evento" type="text" min="0" max="60"
+                value="00"></label>
           </div>
           <div class="direccion-nuevo-evento">
-            <input type="text" placeholder="Direccion">
+            <input id="direccion--direccion-nuevo-evento" type="text" placeholder="Direccion">
           </div>
           <div class="detalles-nuevo-evento">
-            <textarea name="" id="" cols="40" rows="5" placeholder="Detalles"></textarea>
+            <textarea id="detalles-detalles-nuevo-evento" name="" id="" cols="40" rows="5"
+              placeholder="Detalles"></textarea>
           </div>
 
         </div>
@@ -340,8 +350,9 @@
       </div>
     </div>
   </div>
-
+  <script src="Evento.js"></script>
   <script src="app.js"></script>
+
 </body>
 
 </html>

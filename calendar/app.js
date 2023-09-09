@@ -3,7 +3,7 @@ const fechaHoy = new Date();
 const diaActual = fechaHoy.getDate();
 const mesActual = fechaHoy.getMonth();
 const anioActual = fechaHoy.getFullYear();
-const dia = fechaHoy.getDate();
+var dia = fechaHoy.getDate();
 const diaS = fechaHoy.getDay();
 var mes = fechaHoy.getMonth();
 var anio = fechaHoy.getFullYear();
@@ -21,13 +21,26 @@ const anioSiguiente = document.querySelector('#foward-anio');
 const tareasClose = document.querySelector('.tareas-close');
 const nuevaTareaB = document.querySelector('.add');
 const nuevaTareaBack = document.querySelector('.nueva-tarea-back');
+const addTarea = document.querySelector('#agregar-tarea-boton');
+
+// Inputs
+const tituloNuevoEvento = document.querySelector('#titulo--titulo-nuevo-evento');
+const hrNuevoEvento = document.querySelector('#hora--hora-nuevo-evento');
+const minNuevoEvento = document.querySelector('#min--hora-nuevo-evento');
+const direNuevoEvento = document.querySelector('#direccion--direccion-nuevo-evento');
+const detallesNuevoEvento = document.querySelector('#detalles-detalles-nuevo-evento');
 
 //Tareas
 const tareasContainer = document.querySelector('.tareas-container');
 var tareasFecha = document.querySelector('.tareas-fecha');
+var listaTareas = document.querySelector('.tareas-lista');
 var nuevaTareaFecha = document.querySelector('.nueva-tarea-fecha');
 const tareas = document.querySelector('.tareas');
 const nuevaTarea = document.querySelector('.tarea-nueva-container');
+
+var objetoDesestructurado = [];
+var arrayEventos = [];
+var eventosDelDia = [];
 var arrayTareas = [];
 
 function selectorDeMes(mes) {
@@ -134,9 +147,62 @@ function limpiarCalendario() {
   }
 }
 
-function onClicFecha(e) {
-  e.style.backgroundColor = 'blue';
+//Filtra eventos del dia actual y los objetos en arrays
+function FiltrarYDesestructurar() {
+  objetoDesestructurado = [];
+  eventosDelDia = [];
+  eventosDelDia = arrayTareas.filter(evento => evento.id === idActual);
+  console.log(eventosDelDia);
+  eventosDelDia.forEach(element => {
+    const tarea = [element.titulo, element.hr, element.min, element.direccion, element.detalles];
+    objetoDesestructurado.push(tarea);
+    console.log(tarea);
+  });
+  console.log(objetoDesestructurado);
 }
+
+function crearDivsTareas() {
+  FiltrarYDesestructurar();
+  listaTareas.innerHTML = '';
+  let arrayDivs = [];
+  let i = 1;
+  objetoDesestructurado.forEach(element => {
+    let nuevoDiv = document.createElement('div');
+    let divHora = document.createElement('div');
+    let divTitulo = document.createElement('div');
+    divHora.classList.add('horario--tareas-lista');
+    divTitulo.classList.add('titulo--tareas-lista');
+    nuevoDiv.classList.add('item-tarea');
+    if (i % 2 == 0) {
+      nuevoDiv.classList.add('a');
+    } else {
+      nuevoDiv.classList.add('b');
+    }
+    i++;
+    divHora.textContent = `${element[1]}:${element[2]}`;
+    divTitulo.textContent = `${element[0]}`;
+    nuevoDiv.appendChild(divHora);
+    nuevoDiv.appendChild(divTitulo);
+    listaTareas.appendChild(nuevoDiv);
+  });
+}
+
+
+
+// PRUEBA NUEVO EVENTO
+// function crearEvento() {
+//   let newEvent = new Evento("Programar", 15, 30, "hola", "chau");
+//   arrayTareas.push(newEvent);
+// }
+// crearEvento();
+// console.log(arrayTareas[0]);
+// const insertarTarea = document.createElement('div');
+// insertarTarea.textContent= arrayTareas[0];
+// listaTareas.append.insertarTarea;
+
+// function onClicFecha(e) {
+//   e.style.backgroundColor = 'blue';
+// }
 
 // EventListener
 
@@ -187,27 +253,48 @@ tareasClose.addEventListener('click', () => {
 //EventListeners / abrir tareas
 //var fechaTarea se usa en abrir tareas y nueva tarea
 var fechaTarea;
+var diaTarea;
+var idActual;
 for (let i = 0; i < arrayFechas.length; i++) {
   arrayFechas[i].addEventListener('click', () => {
-      if (arrayFechas[i].classList.contains("activo")) {
-        tareasContainer.style.display='flex';
-        const diaTarea = arrayFechas[i].firstElementChild.firstElementChild.textContent;
-        fechaTarea = new Date(anio, mes, diaTarea);
-        tareasFecha.textContent = `${fechaTarea.getDate()} de ${selectorDeMes(mes)} de ${fechaTarea.getFullYear()}`;
-      }
+    if (arrayFechas[i].classList.contains("activo")) {
+      tareasContainer.style.display = 'flex';
+      diaTarea = arrayFechas[i].firstElementChild.firstElementChild.textContent;
+      fechaTarea = new Date(anio, mes, diaTarea);
+      idActual = `${anio}${mes}${diaTarea}`;
+      tareasFecha.textContent = `${fechaTarea.getDate()} de ${selectorDeMes(mes)} de ${fechaTarea.getFullYear()}`;
+      // console.log(crearDivsListaTareas());
+      crearDivsTareas();
+    }
+    // crearDivsListaTareas();
+    // console.log(diaTarea, mes, anio);
   });
 }
 
 //EventListeners / nueva tarea
 nuevaTareaB.addEventListener('click', () => {
-  tareas.style.display='none';
-  nuevaTarea.style.display='flex';
+  tareas.style.display = 'none';
+  nuevaTarea.style.display = 'flex';
   nuevaTareaFecha.textContent = `${fechaTarea.getDate()} de ${selectorDeMes(mes)} de ${fechaTarea.getFullYear()}`;
-  
+
 });
 
 //EventListener / nueva tarea back
 nuevaTareaBack.addEventListener('click', () => {
-  nuevaTarea.style.display= 'none';
-  tareas.style.display='flex';
+  nuevaTarea.style.display = 'none';
+  tareas.style.display = 'flex';
 });
+
+
+//EventListeners / add tarea nueva
+addTarea.addEventListener('click', () => {
+  const id = `${anio}${mes}${diaTarea}`;
+  // idActual = id;
+  const newEvent = new Evento(id, tituloNuevoEvento.value, hrNuevoEvento.value, minNuevoEvento.value, direNuevoEvento.value, detallesNuevoEvento.value);
+  arrayTareas.push(newEvent);
+  nuevaTarea.style.display = 'none';
+  tareas.style.display = 'flex';
+  crearDivsTareas();
+  // console.log(arrayTareas[0]);
+});
+
