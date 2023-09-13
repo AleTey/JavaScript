@@ -37,6 +37,7 @@ var listaTareas = document.querySelector('.tareas-lista');
 var nuevaTareaFecha = document.querySelector('.nueva-tarea-fecha');
 const tareas = document.querySelector('.tareas');
 const nuevaTarea = document.querySelector('.tarea-nueva-container');
+const msjError = document.querySelector('.msj-error');
 
 var objetoDesestructurado = [];
 var arrayEventos = [];
@@ -147,20 +148,60 @@ function limpiarCalendario() {
   }
 }
 
+const filtrarTareasPorId = () => {
+  let edd = [];
+  edd = arrayTareas.filter(evento => evento.id === idActual);
+  if (edd.length > 0) {
+    console.log(edd);
+    return edd;
+  } else {
+    return undefined;
+  }
+}
+
+const obtenerIdHorario = tareasDiarias => {
+  let arrayIdHorario = [];
+
+  if (tareasDiarias !== undefined) {
+    for (let i = 0; i < tareasDiarias.length; i++) {
+      // arrayIdHorario = tareasDiarias[i].hr;
+      arrayIdHorario.push(tareasDiarias[i].hr + tareasDiarias[i].min);
+    }
+    console.log(arrayIdHorario);
+    return arrayIdHorario;
+  } else {
+    return undefined;
+  }
+};
+
+const ordenarArrayPorHrMin = array => {
+  array.sort((obj1, obj2) => {
+    const hr1 = parseInt(obj1.hr);
+    const hr2 = parseInt(obj2.hr);
+
+    if (hr1 < hr2) return -1;
+    if (hr1 > hr2) return 1;
+
+    if (obj1.min < obj2.min) return -1;
+    if (obj1.min > obj2.min) return 1;
+  });
+
+  return array;
+};
+
 //Filtra eventos del dia actual y los objetos en arrays
 function FiltrarYDesestructurar() {
   objetoDesestructurado = [];
   eventosDelDia = [];
   eventosDelDia = arrayTareas.filter(evento => evento.id === idActual);
-  console.log(eventosDelDia);
+  eventosDelDia = ordenarArrayPorHrMin(eventosDelDia);
   eventosDelDia.forEach(element => {
     const tarea = [element.titulo, element.hr, element.min, element.direccion, element.detalles];
     objetoDesestructurado.push(tarea);
-    console.log(tarea);
   });
-  console.log(objetoDesestructurado);
 }
 
+// Crea e inserta los divs de los eventos
 function crearDivsTareas() {
   FiltrarYDesestructurar();
   listaTareas.innerHTML = '';
@@ -187,24 +228,68 @@ function crearDivsTareas() {
   });
 }
 
+function crearVarDeTareas() {
+
+}
+
+// Day Picker
+const consultaDiaContainer = document.querySelector('.consulta-fecha-container');
+
+let diaPikeado = 0;
+let mesPickeado = 0;
+let anioPickeado = 0;
+
+function datePickerHTML() {
+  let dias = [];
+  let meses = [];
+  let anios = [];
+  for (let i = 1; i < 32; i++) {
+    dias.push(`<option value="${i}">${i}</option>`);
+  }
+  for (let i = 1; i < 13; i++) {
+    meses.push(`<option value="${i}">${i}</option>`);
+  }
+  for (let i = 1988; i < 2051; i++) {
+    anios.push(`<option value="${i}">${i}</option>`);
+  }
+  const pickFecha =
+    `<div class="fecha-consulta">
+    <label for="fecha">Selecciona una fecha:</label>
+    <select title="seleccionar fecha" name="dia" class="pick-dia" id="id-pick-dia">
+      ${dias}
+    </select>
+    <select title="seleccionar mes" name="mes" class="pick-mes">
+      ${meses}
+    </select>
+    <select title="seleccionar anio" name="anio" class="pick-anio">
+      ${anios}
+    </select>
+    <button class="consultar-boton">Consultar</button>
+  </div>`
+
+  consultaDiaContainer.innerHTML = '';
+  consultaDiaContainer.innerHTML += pickFecha;
+}
+datePickerHTML();
+
+let consultarBoton = document.querySelector('.consultar-boton');
+let pickDia = document.querySelector('.pick-dia');
+let pickMes = document.querySelector('.pick-mes');
+let pickAnio = document.querySelector('.pick-anio');
+
+consultarBoton.addEventListener('click', () => {
+  diaPikeado = pickDia.value;
+  mesPickeado = pickMes.value;
+  anioPickeado = pickAnio.value;
+  idABuscar = deFechaAID(diaPikeado, mesPickeado, anioPickeado);
+});
+
+function deFechaAID(dia, mes, anio) {
+  return `${dia}${mes}${anio}`
+}
 
 
-// PRUEBA NUEVO EVENTO
-// function crearEvento() {
-//   let newEvent = new Evento("Programar", 15, 30, "hola", "chau");
-//   arrayTareas.push(newEvent);
-// }
-// crearEvento();
-// console.log(arrayTareas[0]);
-// const insertarTarea = document.createElement('div');
-// insertarTarea.textContent= arrayTareas[0];
-// listaTareas.append.insertarTarea;
-
-// function onClicFecha(e) {
-//   e.style.backgroundColor = 'blue';
-// }
-
-// EventListener
+// EventListeners
 
 mesAnterior.addEventListener('click', () => {
   if (mes === 0) {
@@ -263,11 +348,8 @@ for (let i = 0; i < arrayFechas.length; i++) {
       fechaTarea = new Date(anio, mes, diaTarea);
       idActual = `${anio}${mes}${diaTarea}`;
       tareasFecha.textContent = `${fechaTarea.getDate()} de ${selectorDeMes(mes)} de ${fechaTarea.getFullYear()}`;
-      // console.log(crearDivsListaTareas());
       crearDivsTareas();
     }
-    // crearDivsListaTareas();
-    // console.log(diaTarea, mes, anio);
   });
 }
 
@@ -276,25 +358,31 @@ nuevaTareaB.addEventListener('click', () => {
   tareas.style.display = 'none';
   nuevaTarea.style.display = 'flex';
   nuevaTareaFecha.textContent = `${fechaTarea.getDate()} de ${selectorDeMes(mes)} de ${fechaTarea.getFullYear()}`;
-
 });
 
 //EventListener / nueva tarea back
 nuevaTareaBack.addEventListener('click', () => {
   nuevaTarea.style.display = 'none';
   tareas.style.display = 'flex';
+  msjError.textContent = "";
 });
 
 
 //EventListeners / add tarea nueva
 addTarea.addEventListener('click', () => {
   const id = `${anio}${mes}${diaTarea}`;
-  // idActual = id;
   const newEvent = new Evento(id, tituloNuevoEvento.value, hrNuevoEvento.value, minNuevoEvento.value, direNuevoEvento.value, detallesNuevoEvento.value);
-  arrayTareas.push(newEvent);
-  nuevaTarea.style.display = 'none';
-  tareas.style.display = 'flex';
-  crearDivsTareas();
-  // console.log(arrayTareas[0]);
+  let idXHorario = [];
+  idXHorario = obtenerIdHorario(filtrarTareasPorId());
+  let idHrActual = hrNuevoEvento.value + minNuevoEvento.value;
+  if (idXHorario === undefined || !idXHorario.includes(idHrActual)) {
+    arrayTareas.push(newEvent);
+    nuevaTarea.style.display = 'none';
+    tareas.style.display = 'flex';
+    crearDivsTareas();
+    msjError.textContent = "";
+  } else {
+    msjError.textContent = 'El horario se encuentra ocupado con otro evento';
+  }
 });
 

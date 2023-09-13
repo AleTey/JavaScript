@@ -1,0 +1,101 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1 {
+    margin: 10px;
+    text-align: center;
+}
+
+.circulo {
+    margin: 10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #a00;
+}
+
+.container {
+    margin: 10px;
+    margin-left: 100px;
+    width: 100px;
+    height: 100px;
+    background-color: aqua;
+}
+
+#container-colores {
+    text-align: center;
+    width: 200px;
+    height: 50px;
+    border: 2px solid black;
+    display: inline-flex;
+    justify-content: space-around;
+}
+
+.color {
+    width: 50px;
+    height: 100%;
+    /* margin: 5px; */
+}
+
+.color1 {
+
+    background-color: red;
+}
+
+.color2 {
+
+    background-color: green;
+}
+
+.color3 {
+
+    background-color: #00f;
+}
+
+#zona {
+    height: 100px;
+    width: 200px;
+    border: 3px solid black;
+}
+
+.container-chess {
+    width: 100%;
+    height: 150px;
+    /* display: flex;
+    flex-direction: row; */
+}
+.chess-table {
+    width: 100%;
+    height: 100%;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: row;
+    /* background-color: red; */
+    justify-content: center;
+    background-color: transparent;
+}
+.cuadrado {
+    height: 150px;
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.beage {
+    background-color: rgb(219, 219, 119);
+}
+
+.black {
+    background-color: #555;
+}
+
+.king {
+    height: 140px;
+    transition: transform .3s ease-in-out;
+    transition-duration: 2s;
+    
+}
